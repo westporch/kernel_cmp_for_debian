@@ -17,8 +17,8 @@ HOST_NAME=`hostname`
 function get_kernel_source()
 {
     wget -P $KERNEL_SOURCE_DIR https://cdn.kernel.org/pub/linux/kernel/v4.x/linux-$KERNEL_VERSION.tar.xz
-    unxz $KERNEL_SOURCE_DIR/*.xz
-    tar xvf $KERNEL_SOURCE_DIR/*.tar -C $KERNEL_SOURCE_DIR
+    unxz $KERNEL_SOURCE_DIR/linux-$KERNEL_VERSION.tar.xz
+    tar xvf $KERNEL_SOURCE_DIR/linux-$KERNEL_VERSION.tar -C $KERNEL_SOURCE_DIR
 }
 
 # Install required packages for kernel compile.
@@ -38,7 +38,7 @@ function make_menuconfig()
 {
     cd $KERNEL_SOURCE_BASE
     make menuconfig
-    #make-kpkg clean     # Clean the source tree and reset the kernel packages.
+    make-kpkg clean     # Clean the source tree and reset the kernel packages.
 }
 
 # Compile the kernel.
