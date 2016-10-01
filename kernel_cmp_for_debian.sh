@@ -32,6 +32,14 @@ function copy_existing_kernel_config_file()
     cp /boot/config-$(uname -r) $KERNEL_SOURCE_BASE/.config
 }
 
+# Configure the kernel using command(make menuconfig).
+function make_menuconfig()
+{
+    cd $KERNEL_SOURCE_BASE
+    make menuconfig
+}
+
 #get_kernel_source    
 #install_required_packages
 #copy_existing_kernel_config_file
+make_menuconfig
