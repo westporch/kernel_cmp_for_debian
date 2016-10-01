@@ -4,6 +4,7 @@
 KERNEL_SOURCE_DIR=/usr/local/src
 KERNEL_VERSION=$1
 KERNEL_SOURCE_BASE=$KERNEL_SOURCE_DIR/linux-$KERNEL_VERSION 
+HOST_NAME=`hostname`
 
 # Parameter check. Only one parameter(kernel version) is required.
     if [ $# -ne 1 ]; then
@@ -37,6 +38,14 @@ function make_menuconfig()
 {
     cd $KERNEL_SOURCE_BASE
     make menuconfig
+    #make-kpkg clean     # Clean the source tree and reset the kernel packages.
+}
+
+# Compile the kernel.
+function run_kernel_compile()
+{
+    cd $KERNEL_SOURCE_BASE
+    fakeroot make-kpkg --initrd --revision=$HOST_NAME-custom_kernel-1.0 kernel_image kernel_headers
 }
 
 #get_kernel_source    
