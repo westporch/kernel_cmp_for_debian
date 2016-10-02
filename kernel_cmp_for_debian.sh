@@ -5,6 +5,7 @@ KERNEL_SOURCE_DIR=/usr/local/src
 KERNEL_VERSION=$1
 KERNEL_SOURCE_BASE=$KERNEL_SOURCE_DIR/linux-$KERNEL_VERSION 
 HOST_NAME=`hostname`
+CPU_CORES=`cat /proc/cpuinfo | grep -c processor`
 
 # Parameter check. Only one parameter(kernel version) is required.
     if [ $# -ne 1 ]; then
@@ -45,10 +46,11 @@ function make_menuconfig()
 function run_kernel_compile()
 {
     cd $KERNEL_SOURCE_BASE
-    fakeroot make-kpkg --initrd --revision=$HOST_NAME-custom_kernel-1.0 kernel_image kernel_headers
+    fakeroot make-kpkg -j$CPU_CORES --initrd --revision=1.0.$HOST_NAME kernel_image kernel_headers
 }
 
-#get_kernel_source    
-#install_required_packages
-#copy_existing_kernel_config_file
+get_kernel_source    
+install_required_packages
+copy_existing_kernel_config_file
 make_menuconfig
+run_kernel_compile
