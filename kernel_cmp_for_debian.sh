@@ -46,7 +46,7 @@ function make_menuconfig()
 function run_kernel_compile()
 {
     cd $KERNEL_SOURCE_BASE
-    fakeroot make-kpkg -j$CPU_CORES --initrd --revision=1.0.$HOST_NAME kernel_image kernel_headers
+    fakeroot make-kpkg --initrd --revision=1.0 kernel_image kernel_headers
 }
 
 get_kernel_source    
