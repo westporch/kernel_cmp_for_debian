@@ -49,8 +49,14 @@ function run_kernel_compile()
     fakeroot make-kpkg --initrd --revision=1.0 kernel_image kernel_headers
 }
 
+function install_kernel_deb_files()
+{
+	dpkg -i $KERNEL_SOURCE_DIR/*.deb
+}
+
 get_kernel_source    
 install_required_packages
 copy_existing_kernel_config_file
 make_menuconfig
 run_kernel_compile
+install_kernel_deb_files
